@@ -20,14 +20,16 @@ const Calculate = (calculation) => {
     );
 
     if (!(calculation.sell.name in prices)) {
-        prices[calculation.sell.name] = null;{}
+        prices[calculation.sell.name] = null;
+        {
+        }
         promises.push(getPriceObject(
             calculation.sell.type,
             calculation.sell.name
         ))
     }
 
-    Promise.all(promises)
+    return new Promise((resolve) => Promise.all(promises)
         .then(results => {
             // store results
             results.forEach(({name, price}) => {
@@ -55,9 +57,9 @@ const Calculate = (calculation) => {
             outputLines.push(`  ${calculation.sell.string}`);
             outputLines.push(`# Profit: $${profit}`);
 
-            console.log(outputLines.join('\n'));
-
+            resolve(outputLines.join('\n'));
         })
+    );
 
 };
 

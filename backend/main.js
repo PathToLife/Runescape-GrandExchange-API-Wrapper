@@ -2,30 +2,51 @@
  * Calculation endpoints to help with GE
  */
 
-const {GECategories} = require('./rsapi/api');
+const {GECategories:G} = require('./rsapi/api');
 const {Calculate, I} = require('./calculate');
 
-const mining_smithing = GECategories.Mining_and_smithing;
-const arrows = GECategories.Arrows;
 const calculations = [
     {
-        buy: [I(mining_smithing, 'banite ore', 2)],
-        sell: I(mining_smithing, 'bane bar')
+        buy: [I(G.Mining_and_smithing, 'Banite ore', 2)],
+        sell: I(G.Mining_and_smithing, 'Bane bar')
     },
     {
-        buy: [I(mining_smithing, 'rune bar')],
-        sell: I(arrows, 'rune arrow')
+        buy: [I(G.Mining_and_smithing, 'Rune bar')],
+        sell: I(G.Arrows, 'Rune arrow')
     },
     {
-        buy: [I(mining_smithing, 'runite'), I(mining_smithing,'luminite')],
-        sell: I(mining_smithing, 'rune bar')
+        buy: [I(G.Mining_and_smithing, 'Runite'), I(G.Mining_and_smithing,'Luminite')],
+        sell: I(G.Mining_and_smithing, 'Rune bar')
+    },
+    {
+        buy: [I(G.Crafting_materials, 'Blue dragonhide')],
+        sell: I(G.Crafting_materials, 'Blue dragon leather')
+    },
+    {
+        buy: [I(G.Crafting_materials, 'Black dragonhide')],
+        sell: I(G.Crafting_materials, 'Black dragon leather')
+    },
+    {
+        buy: [I(G.Crafting_materials, 'Green dragonhide')],
+        sell: I(G.Crafting_materials, 'Green dragon leather')
+    },
+    {
+        buy: [I(G.Crafting_materials, 'Red dragonhide')],
+        sell: I(G.Crafting_materials, 'Red dragon leather')
     }
 ];
 
 async function run() {
+    const promises = [];
     calculations.forEach(calc => {
-        Calculate(calc)
-    })
+        promises.push(Calculate(calc));
+    });
+    Promise.all(promises)
+        .then(results => {
+            results.forEach(result => {
+                console.log(result);
+            })
+        })
 }
 
 run().then(() => {
