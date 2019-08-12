@@ -23,6 +23,14 @@ const getItemJSON = (geCategory, searchTerm, pageNumber=1) => {
     })
 };
 
+const getPriceObject = (geCategory, searchTerm, pageNumber=1) => {
+    return new Promise((resolve, reject) => {
+        getPrice(geCategory, searchTerm, pageNumber).then(price => {
+            resolve({name: searchTerm, price: price})
+        }).catch(err => reject(err))
+    })
+};
+
 const getPrice = (geCategory, searchTerm, pageNumber=1) => {
 
     return new Promise((resolve, reject) => {
@@ -46,5 +54,6 @@ const getPrice = (geCategory, searchTerm, pageNumber=1) => {
 
 module.exports = {
     getPrice,
+    getPriceObject,
     GECategories: constants.GECategories
 };
