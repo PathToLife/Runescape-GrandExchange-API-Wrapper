@@ -12,7 +12,7 @@ const calculations = [
     },
     {
         buy: [I(G.Mining_and_smithing, 'Rune bar')],
-        sell: I(G.Arrows, 'Rune arrow')
+        sell: I(G.Arrows, 'Rune arrow', 75)
     },
     {
         buy: [I(G.Mining_and_smithing, 'Runite'), I(G.Mining_and_smithing,'Luminite')],

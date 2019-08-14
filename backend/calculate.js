@@ -49,13 +49,13 @@ const Calculate = (calculation) => {
 
             const outputLines = [];
 
-            outputLines.push(`- Buy -`);
+            outputLines.push(`# ${calculation.sell.name}`);
+            outputLines.push(`  Profit: $${profit}`);
             calculation.buy.forEach(item => {
-                outputLines.push(`  ${item.string}`);
+                outputLines.push(` - ${item.string}`);
             });
-            outputLines.push(`- Sell -`);
-            outputLines.push(`  ${calculation.sell.string}`);
-            outputLines.push(`# Profit: $${profit}`);
+            outputLines.push(` - ${calculation.sell.string}`);
+
 
             resolve(outputLines.join('\n'));
         })
