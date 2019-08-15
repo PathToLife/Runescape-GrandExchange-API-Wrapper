@@ -58,7 +58,7 @@ const Calculate = (calculation) => {
 
 
             resolve(outputLines.join('\n'));
-        })
+        }).catch((e) => {console.log('Error', e)})
     );
 
 };

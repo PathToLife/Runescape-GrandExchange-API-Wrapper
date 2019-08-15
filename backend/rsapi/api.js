@@ -14,10 +14,13 @@ const getItemJSON = (geCategory, searchTerm, pageNumber=1) => {
     // console.log(uri);
     return new Promise((resolve, reject) => {
         req.get(uri, {}, (err, res, body) => {
-            if (res.statusCode === 200) {
+            if (res.statusCode !== 200) reject(`Status code ${res.statusCode}`);
+            if (res.body.length <= 0) reject(`Empty Body ${res.body}`);
+
+            try {
                 resolve(JSON.parse(res.body));
-            } else {
-                reject(`Status code ${res.statusCode}`);
+            } catch (e) {
+                reject(`Parse Error: ${e} ${res.body}`)
             }
         })
     })
@@ -49,6 +52,7 @@ const getPrice = (geCategory, searchTerm, pageNumber=1) => {
                     resolve(price);
                 }
             })
+            .catch( err => reject(err))
     });
 };
 
